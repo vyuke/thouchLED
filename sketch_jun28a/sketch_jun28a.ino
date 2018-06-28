@@ -6,7 +6,22 @@ int mapValue = 0;
 boolean onoff = LOW;
 void setup()
 {
-
+  
+    for (int fadeValue = 0; fadeValue <= 255; fadeValue += 5)
+    {
+      // sets the value (range from 0 to 255):
+      analogWrite(ledd, fadeValue);
+      // wait for 30 milliseconds to see the dimming effect
+      delay(25);
+    }
+    for (int fadeValue = 255; fadeValue >= 0; fadeValue -= 5)
+    {
+      // sets the value (range from 0 to 255):
+      analogWrite(ledd, fadeValue);
+      // wait for 30 milliseconds to see the dimming effect
+      delay(25);
+    }
+  
   Serial.begin(9600);
 }
 
@@ -25,9 +40,14 @@ void loop()
     if (n >= 255)
     {
       n = 0;
+      // while (analogRead(analogInPin) > 400)
+      // {
+        analogWrite(ledd, n);
+      // }
+      delay(1500);
     }
     analogWrite(ledd, n);
-    delay(10);
+    delay(5);
   }
 
   //digitalWrite(ledd, onoff);
@@ -38,5 +58,5 @@ void loop()
   Serial.print(n);
   Serial.print(" ");
   Serial.println(mapValue);
-  delay(10);
+  delay(5);
 }
